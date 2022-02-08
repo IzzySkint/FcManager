@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>aspnet-FcManager-530E8709-2110-4C0E-BEB2-632527ECFC7B</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="db\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="db" />
+    <Folder Include="db\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.22" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.22" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.14.0" />
+    <PackageReference Include="NSwag.AspNetCore" Version="13.15.7" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FcManager.Data\FcManager.Data.csproj" />
+  </ItemGroup>
+</Project>

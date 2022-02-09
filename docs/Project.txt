@@ -1,0 +1,10 @@
+Project Notes
+______________
+
+1. The project took me a total of 28 hours to complete.
+2. Things that I would add to the project is more unit tests. I only managed
+to complete the Controller tests. I would have liked to
+have added unit tests for the repositories. I would also
+like to use SQL Server or PostGreSql as a database.
+3. I would also like to add more API methods e.g. to create
+a stadium.

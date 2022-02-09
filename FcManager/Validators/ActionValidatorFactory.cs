@@ -30,15 +30,15 @@ namespace FcManager.Validators
                 {
                     case Actions.CreatePlayers:
                         validator = (IActionValidator<T>)await Task.Run(() => new CreatePlayersValidator(
-                            _serviceProvider.GetService<ILogger<CreatePlayersValidator>>()));
+                            _serviceProvider.GetService(typeof(ILogger<CreatePlayersValidator>)) as ILogger<CreatePlayersValidator>));
                         break;
                     case Actions.AddToTeams:
                         validator = (IActionValidator<T>)await Task.Run(() => new AddToTeamsValidator(
-                            _serviceProvider.GetService<ILogger<CreatePlayersValidator>>()));
+                            _serviceProvider.GetService(typeof(ILogger<AddToTeamsValidator>)) as ILogger<AddToTeamsValidator>));
                         break;
                     case Actions.TransferPlayers:
                         validator = (IActionValidator<T>)await Task.Run(() => new TransferPlayersValidator(
-                            _serviceProvider.GetService<ILogger<CreatePlayersValidator>>()));
+                            _serviceProvider.GetService(typeof(ILogger<TransferPlayersValidator>)) as ILogger<TransferPlayersValidator>));
                         break;
                 }
             }
@@ -48,7 +48,7 @@ namespace FcManager.Validators
                 {
                     case Actions.GetPlayer:
                         validator = (IActionValidator<T>)await Task.Run(() => new GetPlayerValidator(
-                            _serviceProvider.GetService<ILogger<CreatePlayersValidator>>()));
+                            _serviceProvider.GetService(typeof(ILogger<GetPlayerValidator>)) as ILogger<GetPlayerValidator>));
                         break;
                 }
             }
@@ -58,7 +58,7 @@ namespace FcManager.Validators
                 {
                     case Actions.CreateTeams:
                         validator = (IActionValidator<T>)await Task.Run(() => new CreateTeamsValidator(
-                            _serviceProvider.GetService<ILogger<CreatePlayersValidator>>()));
+                            _serviceProvider.GetService(typeof(ILogger<CreateTeamsValidator>)) as ILogger<CreateTeamsValidator>));
                         break;
                 }
                 
@@ -69,11 +69,11 @@ namespace FcManager.Validators
                 {
                     case Actions.GetTeam:
                         validator = (IActionValidator<T>)await Task.Run(() => new GetTeamValidator(
-                            _serviceProvider.GetService<ILogger<CreatePlayersValidator>>()));
+                            _serviceProvider.GetService(typeof(ILogger<GetTeamValidator>)) as ILogger<GetTeamValidator>));
                         break;
                     case Actions.LinkStadium:
                         validator = (IActionValidator<T>)await Task.Run(() => new LinkStadiumValidator(
-                            _serviceProvider.GetService<ILogger<CreatePlayersValidator>>()));
+                            _serviceProvider.GetService(typeof(ILogger<LinkStadiumValidator>)) as ILogger<LinkStadiumValidator>));
                         break;
                 }
             }

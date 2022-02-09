@@ -48,6 +48,7 @@ namespace FcManager.Repositories
                 {
                     _dbContext.Teams.Add(team);
                     await _dbContext.SaveChangesAsync();
+                    model.Id = team.TeamId;
                 }
                 catch (Exception e)
                 {

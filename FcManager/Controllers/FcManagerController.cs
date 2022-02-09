@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using FcManager.Models;
 using FcManager.Services;
+using FcManager.Validators;
 using Microsoft.Extensions.Logging;
 
 namespace FcManager.Controllers
@@ -34,7 +35,7 @@ namespace FcManager.Controllers
 		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> CreatePlayers(IEnumerable<PlayerModel> models)
 		{
-			var validator = await _validatorFactory.CreateAsync<IEnumerable<PlayerModel>>(nameof(CreatePlayers));
+			var validator = await _validatorFactory.CreateAsync<IEnumerable<PlayerModel>>(Actions.CreatePlayers);
 			var validationResult = await validator.ValidateAsync(models);
 
 			if (validationResult.IsValid)
@@ -61,7 +62,7 @@ namespace FcManager.Controllers
 		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> CreateTeams(IEnumerable<TeamModel> models)
 		{
-			var validator = await _validatorFactory.CreateAsync<IEnumerable<TeamModel>>(nameof(CreateTeams));
+			var validator = await _validatorFactory.CreateAsync<IEnumerable<TeamModel>>(Actions.CreateTeams);
 			var validationResult = await validator.ValidateAsync(models);
 
 			if (validationResult.IsValid)
@@ -88,7 +89,7 @@ namespace FcManager.Controllers
 		[Authorize(Roles = "Admin, User")]
 		public async Task<IActionResult> GetPlayer(PlayerModel model)
 		{
-			var validator = await _validatorFactory.CreateAsync<PlayerModel>(nameof(GetPlayer));
+			var validator = await _validatorFactory.CreateAsync<PlayerModel>(Actions.GetPlayer);
 			var validationResult = await validator.ValidateAsync(model);
 
 			if (validationResult.IsValid)
@@ -123,7 +124,7 @@ namespace FcManager.Controllers
 		[Authorize(Roles = "Admin, User")]
 		public async Task<IActionResult> GetTeam(TeamModel model)
 		{
-			var validator = await _validatorFactory.CreateAsync<TeamModel>(nameof(GetTeam));
+			var validator = await _validatorFactory.CreateAsync<TeamModel>(Actions.GetTeam);
 			var validationResult = await validator.ValidateAsync(model);
 
 			if (validationResult.IsValid)
@@ -153,7 +154,7 @@ namespace FcManager.Controllers
 		[Authorize(Roles = "Admin, User")]
 		public async Task<IActionResult> AddToTeams(IEnumerable<PlayerModel> models)
 		{
-			var validator = await _validatorFactory.CreateAsync<IEnumerable<PlayerModel>>(nameof(AddToTeams));
+			var validator = await _validatorFactory.CreateAsync<IEnumerable<PlayerModel>>(Actions.AddToTeams);
 			var validationResult = await validator.ValidateAsync(models);
 
 			if (validationResult.IsValid)
@@ -180,7 +181,7 @@ namespace FcManager.Controllers
 		[Authorize(Roles = "Admin, User")]
 		public async Task<IActionResult> TransferPlayers(IEnumerable<PlayerModel> models)
 		{
-			var validator = await _validatorFactory.CreateAsync<IEnumerable<PlayerModel>>(nameof(TransferPlayers));
+			var validator = await _validatorFactory.CreateAsync<IEnumerable<PlayerModel>>(Actions.TransferPlayers);
 			var validationResult = await validator.ValidateAsync(models);
 
 			if (validationResult.IsValid)
@@ -207,7 +208,7 @@ namespace FcManager.Controllers
 		[Authorize(Roles = "Admin, User")]
 		public async Task<IActionResult> LinkStadium(TeamModel model)
 		{
-			var validator = await _validatorFactory.CreateAsync<TeamModel>(nameof(LinkStadium));
+			var validator = await _validatorFactory.CreateAsync<TeamModel>(Actions.LinkStadium);
 			var validationResult = await validator.ValidateAsync(model);
 
 			if (validationResult.IsValid)

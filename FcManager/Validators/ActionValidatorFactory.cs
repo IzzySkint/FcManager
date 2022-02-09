@@ -7,6 +7,7 @@ using FcManager.Models;
 using FcManager.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
+using FcManager.Controllers;
 
 namespace FcManager.Validators
 {
@@ -27,15 +28,15 @@ namespace FcManager.Validators
             {
                 switch (action)
                 {
-                    case "CreatePlayers":
+                    case Actions.CreatePlayers:
                         validator = (IActionValidator<T>)await Task.Run(() => new CreatePlayersValidator(
                             _serviceProvider.GetService<ILogger<CreatePlayersValidator>>()));
                         break;
-                    case "AddToTeams":
+                    case Actions.AddToTeams:
                         validator = (IActionValidator<T>)await Task.Run(() => new AddToTeamsValidator(
                             _serviceProvider.GetService<ILogger<CreatePlayersValidator>>()));
                         break;
-                    case "TransferPlayers":
+                    case Actions.TransferPlayers:
                         validator = (IActionValidator<T>)await Task.Run(() => new TransferPlayersValidator(
                             _serviceProvider.GetService<ILogger<CreatePlayersValidator>>()));
                         break;
@@ -45,7 +46,7 @@ namespace FcManager.Validators
             {
                 switch (action)
                 {
-                    case "GetPlayer":
+                    case Actions.GetPlayer:
                         validator = (IActionValidator<T>)await Task.Run(() => new GetPlayerValidator(
                             _serviceProvider.GetService<ILogger<CreatePlayersValidator>>()));
                         break;
@@ -55,7 +56,7 @@ namespace FcManager.Validators
             {
                 switch (action)
                 {
-                    case "CreateTeams":
+                    case Actions.CreateTeams:
                         validator = (IActionValidator<T>)await Task.Run(() => new CreateTeamsValidator(
                             _serviceProvider.GetService<ILogger<CreatePlayersValidator>>()));
                         break;
@@ -66,11 +67,11 @@ namespace FcManager.Validators
             {
                 switch (action)
                 {
-                    case "GetTeam":
+                    case Actions.GetTeam:
                         validator = (IActionValidator<T>)await Task.Run(() => new GetTeamValidator(
                             _serviceProvider.GetService<ILogger<CreatePlayersValidator>>()));
                         break;
-                    case "LinkStadium":
+                    case Actions.LinkStadium:
                         validator = (IActionValidator<T>)await Task.Run(() => new LinkStadiumValidator(
                             _serviceProvider.GetService<ILogger<CreatePlayersValidator>>()));
                         break;

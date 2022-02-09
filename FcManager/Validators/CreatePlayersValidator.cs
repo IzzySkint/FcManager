@@ -23,48 +23,53 @@ namespace FcManager.Validators
 
         public async Task<ValidatorResult> ValidateAsync(IEnumerable<PlayerModel> models)
         {
-            List<string> errors = new List<string>();
+            var validationResult = await Task.Run(() =>
+            {
+                List<string> errors = new List<string>();
             
-            if ((models == null) || (!models.Any()))
-            {
-                errors.Add("No players to add.");
-            }
-            else
-            {
-                foreach (var model in models)
+                if ((models == null) || (!models.Any()))
                 {
-                    if (string.IsNullOrEmpty(model.FirstName))
+                    errors.Add("No players to add.");
+                }
+                else
+                {
+                    foreach (var model in models)
                     {
-                        errors.Add("Missing or empty FirstName field");
-                    }
-                    else if (string.IsNullOrEmpty(model.LastName))
-                    {
-                        errors.Add("Missing or empty LastName field");
-                    }
-                    else if (model.Height <= 0)
-                    {
-                        errors.Add("Height must be a value > 0");
-                    }
-                    else if (model.Weight <= 0)
-                    {
-                        errors.Add("Weight must be a value > 0");
-                    }
-                    else if (model.DateOfBirth >= DateTime.Now)
-                    {
-                        errors.Add("Invalid DateOfBirth field");
-                    }
-                    else if (string.IsNullOrEmpty(model.Position))
-                    {
-                        errors.Add("Missing or empty Position field.");
-                    }
-                    else if (string.IsNullOrEmpty(model.Team))
-                    {
-                        errors.Add("Missing or empty Team field.");
+                        if (string.IsNullOrEmpty(model.FirstName))
+                        {
+                            errors.Add("Missing or empty FirstName field");
+                        }
+                        else if (string.IsNullOrEmpty(model.LastName))
+                        {
+                            errors.Add("Missing or empty LastName field");
+                        }
+                        else if (model.Height <= 0)
+                        {
+                            errors.Add("Height must be a value > 0");
+                        }
+                        else if (model.Weight <= 0)
+                        {
+                            errors.Add("Weight must be a value > 0");
+                        }
+                        else if (model.DateOfBirth >= DateTime.Now)
+                        {
+                            errors.Add("Invalid DateOfBirth field");
+                        }
+                        else if (string.IsNullOrEmpty(model.Position))
+                        {
+                            errors.Add("Missing or empty Position field.");
+                        }
+                        else if (string.IsNullOrEmpty(model.Team))
+                        {
+                            errors.Add("Missing or empty Team field.");
+                        }
                     }
                 }
-            }
 
-            return new ValidatorResult(errors.Count == 0, "CreatePlayers", errors.ToArray());
+                return new ValidatorResult(errors.Count == 0, Actions.CreatePlayers, errors.ToArray());
+            });
+
+            return validationResult;
         }
     }
 }

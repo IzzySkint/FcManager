@@ -5,6 +5,7 @@ using FcManager.Data;
 using System.Linq;
 using FcManager.Models;
 using FcManager.Services;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace FcManager.Repositories
@@ -69,7 +70,7 @@ namespace FcManager.Repositories
             {
                 teams = await Task.Run(() =>
                 {
-                    return _dbContext.Teams.Where(predicate).Select(t => new TeamModel
+                    return _dbContext.Teams.Include(t => t.Stadium).Where(predicate).Select(t => new TeamModel
                     {
                         Id = t.TeamId,
                         Name = t.Name,
@@ -108,14 +109,14 @@ namespace FcManager.Repositories
 
             if (errors.Count == 0)
             {
-                team.Name = model.Name ?? team.Name;
-                team.ManagerName = model.ManagerName ?? team.ManagerName;
-                team.CoachName = model.CoachName ?? team.CoachName;
-                team.AssistantCoachName = model.AssistantCoachName ?? team.AssistantCoachName;
-                team.StadiumId = stadium.StadiumId;
-
                 try
                 {
+                    team.Name = model.Name ?? team.Name;
+                    team.ManagerName = model.ManagerName ?? team.ManagerName;
+                    team.CoachName = model.CoachName ?? team.CoachName;
+                    team.AssistantCoachName = model.AssistantCoachName ?? team.AssistantCoachName;
+                    team.StadiumId = stadium.StadiumId;
+
                     await _dbContext.SaveChangesAsync();
                 }
                 catch (Exception e)

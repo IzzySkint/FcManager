@@ -15,6 +15,6 @@ namespace FcManager.Models
         [Compare("Password")]
         public string ConfirmPassword { get; set; }
         [Required]
-        public string[] Roles { get; set; }
+        public string Role { get; set; }
     }
 }

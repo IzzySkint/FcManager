@@ -17,6 +17,8 @@ using Microsoft.Extensions.Logging;
 using FcManager.Data;
 using FcManager.Repositories;
 using FcManager.Services;
+using FcManager.Validators;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -63,6 +65,7 @@ namespace FcManager
                 );
             services.AddSingleton<IConfiguration>(this.Configuration);
             services.AddScoped<IRepositoryFactory, RepositoryFactory>();
+            services.AddScoped<IActionValidatorFactory, ActionValidatorFactory>();
             services.AddSwaggerDocument(configure => configure.Title = "Football Club Manager API");
         }
 
@@ -81,10 +84,9 @@ namespace FcManager
                 {
                     options.Run(async context =>
                     {
-
                         context.Response.StatusCode = 500;
                         context.Response.ContentType = "application/json";
-                        await context.Response.WriteAsync("An unexpected error occurred.");
+                        await context.Response.WriteAsync($"An unexpected error occurred.");
                     });
                 }
             );

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using FcManager.Data;
 using FcManager.Models;
 using FcManager.Services;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace FcManager.Repositories
@@ -83,7 +84,9 @@ namespace FcManager.Repositories
             {
                 players = await Task.Run(() =>
                 {
-                    return _dbContext.Players.Where(predicate).Select(p => new PlayerModel
+                    return _dbContext.Players.Include(p => p.Team)
+                        .Include(p => p.Position)
+                        .Where(predicate).Select(p => new PlayerModel
                     {
                         Id = p.PlayerId,
                         FirstName = p.FirstName,
@@ -110,20 +113,25 @@ namespace FcManager.Repositories
         public async Task<RepositoryResult<PlayerModel>> UpdateAsync(PlayerModel model)
         {
             List<string> errors = new List<string>();
-            var player = _dbContext.Players.FirstOrDefault(p => p.PlayerId == model.Id);
+            var player = _dbContext.Players.Include(p => p.Position).FirstOrDefault(p => p.PlayerId == model.Id);
 
             if (player == null)
             {
                 errors.Add(RepositoryErrors.InvalidPlayerId);
             }
 
-            var position = _dbContext.Positions.FirstOrDefault(p => p.Name == model.Position);
-
-            if (position == null)
+            Position position = null;
+            
+            if (model.Position != null)
             {
-                errors.Add(RepositoryErrors.InvalidPositionName);
-            }
+                position = _dbContext.Positions.FirstOrDefault(p => p.Name == model.Position);
 
+                if (position == null)
+                {
+                    errors.Add(RepositoryErrors.InvalidPositionName);
+                }
+            }
+            
             var team = _dbContext.Teams.FirstOrDefault(t => t.Name == model.Team);
 
             if (team == null)
@@ -133,18 +141,18 @@ namespace FcManager.Repositories
 
             if (errors.Count == 0)
             {
-                player.FirstName = model.FirstName ?? player.FirstName;
-                player.MiddleName = model.MiddleName ?? player.MiddleName;
-                player.LastName = model.LastName ?? player.LastName;
-                player.NickName = model.NickName ?? player.NickName;
-                player.DateOfBirth = model.DateOfBirth ?? player.DateOfBirth;
-                player.Height = model.Height ?? player.Height;
-                player.Weight = model.Weight ?? player.Weight;
-                player.PositionId = position.PositionId;
-                player.TeamId = team.TeamId;
-
                 try
                 {
+                    player.FirstName = model.FirstName ?? player.FirstName;
+                    player.MiddleName = model.MiddleName ?? player.MiddleName;
+                    player.LastName = model.LastName ?? player.LastName;
+                    player.NickName = model.NickName ?? player.NickName;
+                    player.DateOfBirth = model.DateOfBirth ?? player.DateOfBirth;
+                    player.Height = model.Height ?? player.Height;
+                    player.Weight = model.Weight ?? player.Weight;
+                    player.PositionId = (position != null) ? position.PositionId : player.Position.PositionId;
+                    player.TeamId = team.TeamId;
+                    
                     await _dbContext.SaveChangesAsync();
                 }
                 catch (Exception e)

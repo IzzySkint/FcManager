@@ -52,7 +52,7 @@ namespace FcManager.Controllers
 
                     if (userCreateResult.Succeeded)
                     {
-                        var roleAddResult = await _userManager.AddToRoleAsync(user, "Root");
+                        var roleAddResult = await _userManager.AddToRoleAsync(user, model.Role);
 
                         if (roleAddResult.Succeeded)
                         {

@@ -150,7 +150,7 @@ namespace FcManager.Controllers
 		}
 		
 		[HttpPost]
-		[Route("addToTeam")]
+		[Route("addToTeams")]
 		[Authorize(Roles = "Admin, User")]
 		public async Task<IActionResult> AddToTeams(IEnumerable<PlayerModel> models)
 		{

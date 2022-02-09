@@ -24,9 +24,9 @@ namespace FcManager
                     webBuilder.UseStartup<Startup>();
                 }).ConfigureLogging(logging =>
                 {
+                    logging.AddNLog("nlog.config");
                     logging.ClearProviders();
                     logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
-                })
-                .UseNLog();
+                });
     }
 }

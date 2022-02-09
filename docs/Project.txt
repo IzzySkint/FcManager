@@ -8,3 +8,23 @@ have added unit tests for the repositories. I would also
 like to use SQL Server or PostGreSql as a database.
 3. I would also like to add more API methods e.g. to create
 a stadium.
+
+To run the project you can build in the IDE you prefer then run.
+
+The API documents for the project are available at:
+https://localhost:5001/swagger/index.html
+
+To test the client you will have to create a user, this is done
+using the Account API, which is available in the swagger documentation.
+
+The Root user has the following credentials:
+User Name: john.smith@gmail.com
+Password: P@ssword123
+
+Only the Root user can create new users.
+
+The application uses a JWT token, which must be passed in the
+Authorization header if you are using Postman to test with.
+
+To test the application you can run it and create a player:
+https://localhost:5001/api/fcManager/createPlayers

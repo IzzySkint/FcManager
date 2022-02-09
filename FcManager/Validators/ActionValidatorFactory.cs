@@ -12,12 +12,10 @@ namespace FcManager.Validators
 {
     public class ActionValidatorFactory : IActionValidatorFactory
     {
-        private IRepositoryFactory _repositoryFactory;
-        private IServiceProvider _serviceProvider;
+        private readonly IServiceProvider _serviceProvider;
         
-        public ActionValidatorFactory(IRepositoryFactory repositoryFactory, IServiceProvider serviceProvider)
+        public ActionValidatorFactory(IServiceProvider serviceProvider)
         {
-            _repositoryFactory = repositoryFactory;
             _serviceProvider = serviceProvider;
         }
         
@@ -31,17 +29,14 @@ namespace FcManager.Validators
                 {
                     case "CreatePlayers":
                         validator = (IActionValidator<T>)await Task.Run(() => new CreatePlayersValidator(
-                            _repositoryFactory,
                             _serviceProvider.GetService<ILogger<CreatePlayersValidator>>()));
                         break;
                     case "AddToTeams":
                         validator = (IActionValidator<T>)await Task.Run(() => new AddToTeamsValidator(
-                            _repositoryFactory,
                             _serviceProvider.GetService<ILogger<CreatePlayersValidator>>()));
                         break;
                     case "TransferPlayers":
                         validator = (IActionValidator<T>)await Task.Run(() => new TransferPlayersValidator(
-                            _repositoryFactory,
                             _serviceProvider.GetService<ILogger<CreatePlayersValidator>>()));
                         break;
                 }
@@ -52,7 +47,6 @@ namespace FcManager.Validators
                 {
                     case "GetPlayer":
                         validator = (IActionValidator<T>)await Task.Run(() => new GetPlayerValidator(
-                            _repositoryFactory,
                             _serviceProvider.GetService<ILogger<CreatePlayersValidator>>()));
                         break;
                 }
@@ -63,7 +57,6 @@ namespace FcManager.Validators
                 {
                     case "CreateTeams":
                         validator = (IActionValidator<T>)await Task.Run(() => new CreateTeamsValidator(
-                            _repositoryFactory,
                             _serviceProvider.GetService<ILogger<CreatePlayersValidator>>()));
                         break;
                 }
@@ -75,12 +68,10 @@ namespace FcManager.Validators
                 {
                     case "GetTeam":
                         validator = (IActionValidator<T>)await Task.Run(() => new GetTeamValidator(
-                            _repositoryFactory,
                             _serviceProvider.GetService<ILogger<CreatePlayersValidator>>()));
                         break;
                     case "LinkStadium":
                         validator = (IActionValidator<T>)await Task.Run(() => new LinkStadiumValidator(
-                            _repositoryFactory,
                             _serviceProvider.GetService<ILogger<CreatePlayersValidator>>()));
                         break;
                 }

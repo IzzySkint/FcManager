@@ -9,12 +9,10 @@ namespace FcManager.Validators
 {
     public class CreateTeamsValidator : IActionValidator<IEnumerable<TeamModel>>
     {
-        private readonly IRepositoryFactory _repositoryFactory;
         private readonly ILogger _logger;
         
-        public CreateTeamsValidator(IRepositoryFactory repositoryFactory, ILogger logger)
+        public CreateTeamsValidator(ILogger logger)
         {
-            _repositoryFactory = repositoryFactory;
             _logger = logger;
         }
 

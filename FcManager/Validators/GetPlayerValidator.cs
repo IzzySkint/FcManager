@@ -7,12 +7,10 @@ namespace FcManager.Validators
 {
     public class GetPlayerValidator : IActionValidator<PlayerModel>
     {
-        private readonly IRepositoryFactory _repositoryFactory;
         private readonly ILogger _logger;
         
-        public GetPlayerValidator(IRepositoryFactory repositoryFactory, ILogger logger)
+        public GetPlayerValidator(ILogger logger)
         {
-            _repositoryFactory = repositoryFactory;
             _logger = logger;
         }
         

@@ -7,12 +7,10 @@ namespace FcManager.Validators
 {
     public class GetTeamValidator : IActionValidator<TeamModel>
     {
-        private readonly IRepositoryFactory _repositoryFactory;
         private readonly ILogger _logger;
 
-        public GetTeamValidator(IRepositoryFactory repositoryFactory, ILogger logger)
+        public GetTeamValidator(ILogger logger)
         {
-            _repositoryFactory = repositoryFactory;
             _logger = logger;
         }
         

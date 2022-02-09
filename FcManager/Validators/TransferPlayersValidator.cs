@@ -9,12 +9,10 @@ namespace FcManager.Validators
 {
     public class TransferPlayersValidator : IActionValidator<IEnumerable<PlayerModel>>
     {
-        private readonly IRepositoryFactory _repositoryFactory;
         private readonly ILogger _logger;
         
-        public TransferPlayersValidator(IRepositoryFactory repositoryFactory, ILogger logger)
+        public TransferPlayersValidator(ILogger logger)
         {
-            _repositoryFactory = repositoryFactory;
             _logger = logger;
         }
         

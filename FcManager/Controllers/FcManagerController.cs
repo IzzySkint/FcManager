@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using FcManager.Models;
 using FcManager.Services;
 using FcManager.Validators;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Logging;
 
 namespace FcManager.Controllers
@@ -32,7 +33,7 @@ namespace FcManager.Controllers
 		
 		[HttpPost]
 		[Route("createPlayers")]
-		[Authorize(Roles = "Admin")]
+		[Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
 		public async Task<IActionResult> CreatePlayers(IEnumerable<PlayerModel> models)
 		{
 			var validator = await _validatorFactory.CreateAsync<IEnumerable<PlayerModel>>(Actions.CreatePlayers);
@@ -59,7 +60,7 @@ namespace FcManager.Controllers
 
 		[HttpPost]
 		[Route("createTeams")]
-		[Authorize(Roles = "Admin")]
+		[Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
 		public async Task<IActionResult> CreateTeams(IEnumerable<TeamModel> models)
 		{
 			var validator = await _validatorFactory.CreateAsync<IEnumerable<TeamModel>>(Actions.CreateTeams);
@@ -86,7 +87,7 @@ namespace FcManager.Controllers
 
 		[HttpGet]
 		[Route("getPlayer")]
-		[Authorize(Roles = "Admin, User")]
+		[Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme, Roles = "Admin, User")]
 		public async Task<IActionResult> GetPlayer(PlayerModel model)
 		{
 			var validator = await _validatorFactory.CreateAsync<PlayerModel>(Actions.GetPlayer);
@@ -121,7 +122,7 @@ namespace FcManager.Controllers
 
 		[HttpGet]
 		[Route("getTeam")]
-		[Authorize(Roles = "Admin, User")]
+		[Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme, Roles = "Admin, User")]
 		public async Task<IActionResult> GetTeam(TeamModel model)
 		{
 			var validator = await _validatorFactory.CreateAsync<TeamModel>(Actions.GetTeam);
@@ -151,7 +152,7 @@ namespace FcManager.Controllers
 		
 		[HttpPost]
 		[Route("addToTeams")]
-		[Authorize(Roles = "Admin, User")]
+		[Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme, Roles = "Admin, User")]
 		public async Task<IActionResult> AddToTeams(IEnumerable<PlayerModel> models)
 		{
 			var validator = await _validatorFactory.CreateAsync<IEnumerable<PlayerModel>>(Actions.AddToTeams);
@@ -178,7 +179,7 @@ namespace FcManager.Controllers
 
 		[HttpPost]
 		[Route("transferPlayers")]
-		[Authorize(Roles = "Admin, User")]
+		[Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme, Roles = "Admin, User")]
 		public async Task<IActionResult> TransferPlayers(IEnumerable<PlayerModel> models)
 		{
 			var validator = await _validatorFactory.CreateAsync<IEnumerable<PlayerModel>>(Actions.TransferPlayers);
@@ -205,7 +206,7 @@ namespace FcManager.Controllers
 
 		[HttpPost]
 		[Route("linkStadium")]
-		[Authorize(Roles = "Admin, User")]
+		[Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme, Roles = "Admin, User")]
 		public async Task<IActionResult> LinkStadium(TeamModel model)
 		{
 			var validator = await _validatorFactory.CreateAsync<TeamModel>(Actions.LinkStadium);

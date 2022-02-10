@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using FcManager.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -32,10 +33,10 @@ namespace FcManager.Controllers
             this._signInManager = signInManager;
             this._userManager = userManager;
         }
-
-        [HttpPost]
+        
         [Route("createUser")]
-        [Authorize(Roles = "Root")]
+        [HttpPost]
+        [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme, Roles = "Root")]
         public async Task<IActionResult> CreateUser(UserModel model)
         {
             if (ModelState.IsValid)
@@ -87,6 +88,8 @@ namespace FcManager.Controllers
         {
             if (ModelState.IsValid)
             {
+                _logger.LogInformation($"Attempted log in by user, {model.UserName}");
+                
                 var signInResult = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
 
                 if (signInResult.Succeeded)

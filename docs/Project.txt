@@ -28,3 +28,11 @@ Authorization header if you are using Postman to test with.
 
 To test the application you can run it and create a player:
 https://localhost:5001/api/fcManager/createPlayers
+
+There are Postman requests in the file FcManager.json which can be
+imported and used.
+
+The requests in this file are:
+Autenticate - Authenticates a user
+Create User - Creates a user
+Get Player - Gets a player using Id.
